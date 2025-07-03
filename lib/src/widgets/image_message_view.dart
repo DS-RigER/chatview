@@ -23,11 +23,10 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:chatview_utils/chatview_utils.dart';
+import 'package:chatview/src/extensions/extensions.dart';
+import 'package:chatview/src/models/models.dart';
 import 'package:flutter/material.dart';
 
-import '../extensions/extensions.dart';
-import '../models/config_models/image_message_configuration.dart';
-import '../models/config_models/message_reaction_configuration.dart';
 import 'reaction_widget.dart';
 import 'share_icon.dart';
 
@@ -102,10 +101,10 @@ class ImageMessageView extends StatelessWidget {
                     borderRadius: imageMessageConfig?.borderRadius ??
                         BorderRadius.circular(14),
                     child: (() {
-                      if (imageUrl.isUrl) {
+                      if (imageUrl.isImageUrl) {
                         return Image.network(
                           imageUrl,
-                          fit: BoxFit.fitHeight,
+                          fit: BoxFit.fitWidth,
                           loadingBuilder: (context, child, loadingProgress) {
                             if (loadingProgress == null) return child;
                             return Center(
@@ -123,12 +122,12 @@ class ImageMessageView extends StatelessWidget {
                         return Image.memory(
                           base64Decode(imageUrl
                               .substring(imageUrl.indexOf('base64') + 7)),
-                          fit: BoxFit.fill,
+                          fit: BoxFit.fitWidth,
                         );
                       } else {
                         return Image.file(
                           File(imageUrl),
-                          fit: BoxFit.fill,
+                          fit: BoxFit.fitWidth,
                         );
                       }
                     }()),
