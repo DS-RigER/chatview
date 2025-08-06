@@ -101,7 +101,7 @@ class ImageMessageView extends StatelessWidget {
                     borderRadius: imageMessageConfig?.borderRadius ??
                         BorderRadius.circular(14),
                     child: (() {
-                      if (imageUrl.isImageUrl) {
+                      if (imageUrl.isImageUrl && !imageUrl.fromMemory) {
                         return Image.network(
                           imageUrl,
                           fit: BoxFit.fitWidth,
